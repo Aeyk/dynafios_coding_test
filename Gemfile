@@ -1,4 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'sinatra', '~2.1.0'
-gem 'html-table', "~1.7.0"
+gem 'sinatra', '~>2.1.0'
