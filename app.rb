@@ -4,6 +4,7 @@ require 'net/http'
 require 'json'
 require 'builder'
 require 'sinatra'
+require 'dotenv/load'
 
 # Feature 1 - Display WordPress Posts
 # The application should display the most recent 10 posts from the REST API on this WordPress site: http://wordpress.org/news/wp-json/ .
@@ -47,8 +48,12 @@ html << "</tbody></table></body></html>"
 template.write(html)
 template.close
 
-set :public_folder, 'public'
 get '/' do
+	'<a href="/posts">Feature 1</a><a href="/map"> Feature 2</a>'
+end
+
+set :public_folder, 'public'
+get '/posts/' do
   id = params['id']
   wp_page_url = wp_url = URI.parse  "https://wordpress.org/news/wp-json/wp/v2/posts/#{id}"
   wp_request = Net::HTTP.get(wp_page_url)
@@ -62,4 +67,18 @@ get '/' do
   else
     html
   end
+end
+
+
+# Feature 2 - Google Maps Integration
+# This feature should interface with the Google Maps API. This feature should accept user input and render a map displaying some data (the data displayed is your choice).
+# You may pull additional API's to produce your map.
+# Please create a github repo where our team can pull and test the finished application.
+# In your github repo please be sure to include a Readme with meaningful information and instructions on how to compile/run your project.
+
+
+get '/map' do
+  map = "<h1>Noisebridge</h1><iframe width='600'  height='450'  style='border:0'  loading='lazy'  allowfullscreen  src='https://www.google.com/maps/embed/v1/place?key=#{ENV['MAPS_API_KEY']} &q=272+Capp+St,+San+Francisco+CA+94110'></iframe>"
+  print map
+  map
 end
