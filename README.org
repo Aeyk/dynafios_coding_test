@@ -1,0 +1,8 @@
+To get dependencies
+#+begin_src bash :tangle run.sh
+bundle
+bundle install
+echo "MAPS_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" > .env
+source .env
+ruby ./app.rb
+#+end_src
