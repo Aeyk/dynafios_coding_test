@@ -1,4 +1,4 @@
-To get dependencies
+To get dependencies and run
 #+begin_src bash :tangle run.sh
 bundle
 bundle install
