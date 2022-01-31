@@ -53,7 +53,7 @@ get '/' do
 end
 
 set :public_folder, 'public'
-get '/posts/' do
+get '/posts' do
   id = params['id']
   wp_page_url = wp_url = URI.parse  "https://wordpress.org/news/wp-json/wp/v2/posts/#{id}"
   wp_request = Net::HTTP.get(wp_page_url)
@@ -68,6 +68,21 @@ get '/posts/' do
     html
   end
 end
+
+get '/posts/' do
+  id = params['id']
+  wp_page_url = wp_url = URI.parse  "https://wordpress.org/news/wp-json/wp/v2/posts/#{id}"
+  wp_request = Net::HTTP.get(wp_page_url)
+  wp_result = Net::HTTP.start(wp_page_url.host, wp_page_url.port,
+                              :use_ssl =>
+                              wp_page_url.scheme == 'https') {|http|
+    http.request_get(wp_page_url)
+  }
+  if id
+    JSON.parse(wp_result.body)['content']['rendered'].to_s
+  end
+end
+
 
 
 # Feature 2 - Google Maps Integration
