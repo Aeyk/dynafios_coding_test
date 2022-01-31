@@ -78,7 +78,8 @@ end
 
 
 get '/map' do
-  map = "<h1>Noisebridge</h1><iframe width='600'  height='450'  style='border:0'  loading='lazy'  allowfullscreen  src='https://www.google.com/maps/embed/v1/place?key=#{ENV['MAPS_API_KEY']} &q=272+Capp+St,+San+Francisco+CA+94110'></iframe>"
+  map = "<form><input name='map_data' type='text' value='#{params['map_data'] || CGI.escape("272 Capp St, San Francisco, CA 94110")}'/><input type='submit'/></form>
+<iframe width='600'  height='450'  style='border:0'  loading='lazy'  allowfullscreen  src='https://www.google.com/maps/embed/v1/place?key=#{ENV['MAPS_API_KEY']}&q=#{params['map_data'] || CGI.escape("272 Capp St, San Francisco, CA 94110")}'></iframe>"
   print map
   map
 end
